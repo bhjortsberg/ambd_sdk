@@ -420,6 +420,8 @@
 #include <amazon_freertos/example_amazon_freertos.h>
 #endif
 
+#include <crash_catcher/example_crash_catcher.h>
+
 /*
 	Preprocessor of example
 */
@@ -999,4 +1001,5 @@ example_hilink();
 	example_ric();
 #endif
 
+    example_crash_catcher();
 }

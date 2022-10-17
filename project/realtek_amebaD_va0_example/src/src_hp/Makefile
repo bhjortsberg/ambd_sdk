@@ -9,12 +9,14 @@ include $(MAKE_INCLUDE_GEN)
 DIR = $(SRCDIR)
 
 MODULE_IFLAGS = -I$(DIR)./
+MODULE_IFLAGS += -I$(BASEDIR)/component/common/application/CrashCatcher/include
 
 vpath %.c $(DIR)
 #*****************************************************************************#
 #                               Source FILE LIST                              #
 #*****************************************************************************#
 CSRC = $(DIR)/main.c
+CSRC += $(DIR)/crash_hexdump.c
 
 #*****************************************************************************#
 #                               Object FILE LIST                              #
