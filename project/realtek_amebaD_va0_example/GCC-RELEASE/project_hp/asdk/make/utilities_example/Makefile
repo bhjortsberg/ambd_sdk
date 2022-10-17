@@ -2,6 +2,7 @@
 include $(MAKE_INCLUDE_GEN)
 #IFLAGS               += -I$(BASEDIR)/component/common/network/coap/include
 IFLAGS               += -I$(BASEDIR)/component/common/application/mqtt/MQTTClient
+IFLAGS               += -I$(BASEDIR)/component/common/application/CrashCatcher/include
 IFLAGS				+= -I$(BASEDIR)/component/common/audio/flac
 IFLAGS               += -I$(BASEDIR)/component/common/bluetooth/realtek/sdk
 IFLAGS               += -I$(BASEDIR)/component/common/drivers/sdio/realtek/sdio_host/inc
