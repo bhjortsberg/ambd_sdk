@@ -1,30 +1,29 @@
 #include <CrashCatcher.h>
 #include "FreeRTOSConfig.h"
 
-void vSTM32L475getc( void * pv,
-                     char * ch );
-void vSTM32L475putc( void * pv,
-                     char ch );
+extern void LOGUART_PutChar(uint8_t c);
+extern uint8_t LOGUART_GetChar(uint8_t    PullMode);
+
+static void printString(const char* pString);
 
 const CrashCatcherMemoryRegion* CrashCatcher_GetMemoryRegions(void)
 {
-    static const CrashCatcherMemoryRegion regions[] = {
+/*    static const CrashCatcherMemoryRegion regions[] = {
         {0x10000000, 0x10008000, CRASH_CATCHER_BYTE},
         {0xFFFFFFFF, 0xFFFFFFFF, CRASH_CATCHER_BYTE}
     };
-    return regions;
+    return regions;*/
+    return NULL;
 }
 
 void CrashCatcher_putc(int c)
 {
-    vSTM32L475putc( NULL, (char)c);
+    LOGUART_PutChar((uint8_t)c);
 }
 
 int CrashCatcher_getc(void)
 {
-    int ch = 0;
-    vSTM32L475getc( NULL, (char*)ch);
-    return ch;
+    return (int)LOGUART_GetChar(0);
 }
 
 static void printString(const char* pString)
@@ -33,11 +32,11 @@ static void printString(const char* pString)
         CrashCatcher_putc(*pString++);
 }
 
-/*
+
 CrashCatcherReturnCodes CrashCatcher_DumpEnd(void)
 {
     printString("\r\nEnd of dump\r\n");
 
     while (1);
     return CRASH_CATCHER_EXIT;
-}*/
+}

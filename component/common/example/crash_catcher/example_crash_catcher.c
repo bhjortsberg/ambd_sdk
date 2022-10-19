@@ -17,7 +17,7 @@ static void example_crash_catcher_thread(void *pvParameters)
 }
 
 void example_crash_catcher(void)
-{    
+{
     if(xTaskCreate(example_crash_catcher_thread, ((const char*)"example_crash_catcher_thread"), 2048, NULL, tskIDLE_PRIORITY + 1, NULL) != pdPASS)
         printf("\n\r%s xTaskCreate(example_crash_catcher_thread) failed", __FUNCTION__);
 }
