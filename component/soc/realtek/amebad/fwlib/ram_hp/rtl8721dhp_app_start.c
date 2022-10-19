@@ -179,18 +179,26 @@ void INT_HardFault_Patch_C(uint32_t mstack[], uint32_t pstack[], uint32_t lr_val
 	
 }
 
+struct CrashCatcherExceptionRegisters;  // Forward declaration
+extern void CrashCatcher_Entry(const struct CrashCatcherExceptionRegisters* pExceptionRegisters);
+extern uint32_t g_crashCatcherStack[125];
+
 VOID
 INT_HardFault_Patch(void)
 {
 	__ASM volatile(
-		"MRS R0, MSP\n\t"
-		"MRS R1, PSP\n\t"
-		"MOV R2, LR\n\t" /* second parameter is LR current value */
-		"MOV R3, #0\n\t"   
-		"SUB.W	R4, R0, #128\n\t"
-		"MSR MSP, R4\n\t"   // Move MSP to upper to for we can dump current stack contents without chage contents
-		"LDR R4,=INT_HardFault_Patch_C\n\t"
-		"BX R4\n\t"
+/*		"LDR R4,=HardFault_Handler\n\t"
+		"BX R4\n\t"*/
+		"MRS R3, XPSR\n\t"
+		"MRS R2, PSP\n\t"
+		"MRS R1, MSP\n\t"
+		"LDR SP,=(g_crashCatcherStack + 4 * 125)\n\t"
+		"PUSH.W {R1-R11, LR}\n\t"
+		"MOV R0, SP\n\t" // parameter is SP where registers are stored
+		"BL CrashCatcher_Entry\n\t"
+		"POP.W {R1-R11,LR}\n\t"
+		"MOV SP, R1\n\t"
+		"BX LR\n\t"
 	);
 }
 
@@ -239,13 +247,14 @@ INT_MemFault_Patch(void)
 	);
 }
 
+__attribute__((weak)) void HardFault_Handler(void);
 VOID VectorTableOverride(VOID)
 {
 #if 1
 	NewVectorTable[3] = (HAL_VECTOR_FUN)INT_HardFault_Patch;
-	NewVectorTable[4] = (HAL_VECTOR_FUN)INT_MemFault_Patch;
-	NewVectorTable[5] = (HAL_VECTOR_FUN)INT_BusFault_Patch;
-	NewVectorTable[6] = (HAL_VECTOR_FUN)INT_UsageFault_Patch;
+	NewVectorTable[4] = (HAL_VECTOR_FUN)INT_HardFault_Patch;
+	NewVectorTable[5] = (HAL_VECTOR_FUN)INT_HardFault_Patch;
+	NewVectorTable[6] = (HAL_VECTOR_FUN)INT_HardFault_Patch;
 #endif
 }
 
