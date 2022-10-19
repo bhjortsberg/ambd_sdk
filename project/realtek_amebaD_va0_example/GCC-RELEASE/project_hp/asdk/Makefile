@@ -52,6 +52,7 @@ ROM2_OBJS_LIST = ./build/rom2/*.o
 LINK_ROM_LIB = $(ROOTDIR)/lib/rom_acut/rom.a
 LINK_ROM_LIB_NS = $(ROOTDIR)/lib/rom_acut/rom_ns.a
 LINK_BOOT_LIB = -Wl,--whole-archive $(ROOTDIR)/lib/application/lib_bootloader_hp.a -Wl,--no-whole-archive
+LINK_CRASH_CATCHER = -Wl,--whole-archive $(BASEDIR)/component/common/application/CrashCatcher/lib/armv7-m/libCrashCatcher_HexDump_armv7m.a -Wl,--no-whole-archive
 
 LINK_ROM_SYMBOL_NS = ./ld/rlx8721d_rom_symbol_empty.ld
 LINK_ROM_SYMBOL_S = ./ld/rlx8721d_rom_symbol_empty.ld
@@ -353,7 +354,7 @@ ifeq ($(CONFIG_TRUSTZONE), y)
 endif
 linker_image2:
 	@echo "========= linker img2 start ========="
-	$(LD) $(LD_ARG) target.axf $(RAM_OBJS_LIST) $(LINK_ROM_LIB) $(LINK_APP_LIB)
+	$(LD) $(LD_ARG) target.axf $(RAM_OBJS_LIST) $(LINK_ROM_LIB) $(LINK_APP_LIB) $(LINK_CRASH_CATCHER)
 
 	$(MOVE) text.map $(IMAGE_TARGET_FOLDER)/text_image2.map
 	$(MOVE) target.axf $(IMAGE_TARGET_FOLDER)
@@ -393,7 +394,7 @@ linker_image2:
 
 linker_image2_ns:
 	@echo "========= linker img2_ns start ========="
-	$(LD) $(LD_ARG) target_img2.axf $(RAM_OBJS_LIST) $(LINK_ROM_LIB_NS) $(LINK_APP_LIB)  -lm -lstdc++
+	$(LD) $(LD_ARG) target_img2.axf $(RAM_OBJS_LIST) $(LINK_ROM_LIB_NS) $(LINK_APP_LIB) $(LINK_CRASH_CATCHER) -lm -lstdc++
 
 	$(MOVE) text.map $(IMAGE_TARGET_FOLDER)/text_image2_ns.map
 	$(MOVE) target_img2.axf $(IMAGE_TARGET_FOLDER)
