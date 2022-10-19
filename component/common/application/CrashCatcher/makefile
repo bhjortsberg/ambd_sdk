@@ -81,7 +81,8 @@ ARM_GCCFLAGS += -std=gnu90
 ARM_LDFLAGS  := -mthumb -Wl,-Map=$(basename $@).map,--cref,--gc-sections
 ARM_ASFLAGS  := -g3 -mthumb -x assembler-with-cpp -MMD -MP
 ARMV6M_FLAGS := -mcpu=cortex-m0
-ARMV7M_FLAGS := -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=softfp
+#ARMV7M_FLAGS := -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=softfp
+ARMV7M_FLAGS := -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
 
 # Flags to use when compiling binaries to run on this host system.
 HOST_GCCFLAGS := -O2 -g3 -Wall -Wextra -Werror -Wno-unused-parameter -MMD -MP
