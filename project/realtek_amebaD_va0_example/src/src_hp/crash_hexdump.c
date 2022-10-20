@@ -8,12 +8,12 @@ static void printString(const char* pString);
 
 const CrashCatcherMemoryRegion* CrashCatcher_GetMemoryRegions(void)
 {
-/*    static const CrashCatcherMemoryRegion regions[] = {
-        {0x10000000, 0x10008000, CRASH_CATCHER_BYTE},
+    static const CrashCatcherMemoryRegion regions[] = {
+        /*{0x1003C800, 0x1003D800, CRASH_CATCHER_BYTE},*/
+        {0x10004000, 0x10005000, CRASH_CATCHER_BYTE},
         {0xFFFFFFFF, 0xFFFFFFFF, CRASH_CATCHER_BYTE}
     };
-    return regions;*/
-    return NULL;
+    return regions;
 }
 
 void CrashCatcher_putc(int c)
