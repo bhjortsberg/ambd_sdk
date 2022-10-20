@@ -35,10 +35,21 @@ TaskArg_t arg = { 1337, "Hello User button" };
 
 void bhjCrash()
 {
-    int (*foo)(int i);
-    foo = (int(*)(int))0xbadc0de;
+    int (*foo)(int i, int j, int k, int l, int m);
+    foo = (int(*)(int,int,int,int,int))0xbadc0de;
     configPRINTF((" Crash!"));
-    foo(6);
+    // Arg 1-4 in registers 5 on stack
+    foo(2,3,4,5,6);
+}
+
+void devalert()
+{
+    bhjCrash();
+}
+
+void rocks()
+{
+    devalert();
 }
 
 void CrashTask(void* argument)
@@ -50,7 +61,7 @@ void CrashTask(void* argument)
         vTaskDelay(xDelay);
         if (count-- == 0)
         {
-            bhjCrash();
+            rocks();
             count = 10;
         }
     }
