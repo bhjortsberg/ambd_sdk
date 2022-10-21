@@ -61,7 +61,7 @@ SECTIONS
 		__ram_nocache_end__ = .;
 	} > BD_RAM_NS
 
-	.ram_heap.data : 
+	.ram_heap.data (NOLOAD) :
 	{
 		. = ALIGN (32);
 		*(.bfsram.data*)
