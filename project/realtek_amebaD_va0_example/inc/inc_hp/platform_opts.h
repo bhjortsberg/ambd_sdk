@@ -204,6 +204,9 @@
 #define CONFIG_EXAMPLE_AZURE_IOTHUB_X509     0
 #endif
 
+/* Crash Catcher Example */
+#define CONFIG_EXAMPLE_CRASH_CATCHER 1
+
 /* For Amazon FreeRTOS SDK example */
 #define CONFIG_EXAMPLE_AMAZON_FREERTOS   0
 

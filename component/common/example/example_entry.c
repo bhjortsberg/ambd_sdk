@@ -1001,5 +1001,8 @@ example_hilink();
 	example_ric();
 #endif
 
+#if defined(CONFIG_EXAMPLE_CRASH_CATCHER) && CONFIG_EXAMPLE_CRASH_CATCHER
     example_crash_catcher();
+#endif
+
 }
