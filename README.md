@@ -41,6 +41,9 @@ It's a windows command line tool and can be started from Wsl using a provided sc
 
     $ cd project/realtek_amebaD_va0_example/GCC-RELEASE
     $ ./flash_to_ambd.sh
+    Set Ameba D device in UART download mode then press enter...
+    All images are sent successfully!
+    Image tool closed!
 
 
 -------------------------------------------------------
