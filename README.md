@@ -1,10 +1,18 @@
 # CrashCatcher integration
 
-Crash catcher is integrated and an example can be enabled if setting
+This fork is adding a CrashCatcher example to the Ambd SDK examples.
+
+The Crash catcher example can be enabled if setting
 `CONFIG_EXAMPLE_CRASH_CATCHER = 1` in `platform_opts.h` (on by default).
 
 When running the example the task will crash around 5 seconds after boot
 and the crash dump is printed to the serial console in hex format.
+
+CrashCatcher code can be found in `component/common/application/CrashCatcher`
+and the example is in `component/common/example/crash_catcher/`.
+
+The required CrashCatcher callbacks are implemented in
+`project/realtek_amebaD_va0_example/src/src_hp/crash_hexdump.c`
 
 ## Build instruction
 
@@ -19,7 +27,7 @@ The following will be seen in serial console when in flasing mode:
 
     #Flash Download Start
 
-There is an image flashing tool added in tools/AmebaD/image_tool_cli/amebad_image_tool.exe
+There is an image flashing tool added in `tools/AmebaD/image_tool_cli/amebad_image_tool.exe`
 It's a windows command line tool and can be started from Wsl using a provided script:
 
     $ cd project/realtek_amebaD_va0_example/GCC-RELEASE
