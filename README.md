@@ -1,6 +1,7 @@
 # CrashCatcher integration
 
-This fork is adding a CrashCatcher example to the Ambd SDK examples.
+This fork is adding a [CrashCatcher](https://github.com/adamgreen/CrashCatcher)
+example to the Ambd SDK examples.
 
 The Crash catcher example can be enabled if setting
 `CONFIG_EXAMPLE_CRASH_CATCHER = 1` in `platform_opts.h` (on by default).
@@ -14,12 +15,20 @@ and the example is in `component/common/example/crash_catcher/`.
 The required CrashCatcher callbacks are implemented in
 `project/realtek_amebaD_va0_example/src/src_hp/crash_hexdump.c`
 
-## Build instruction
+## HardFault Handler Hook
+
+The SDK is implementing the HardFault_Handler which means that the
+HardFault_Handler provided by CrashCatcher cannot be used. However,
+there is a hook in `component/soc/realtek/amebad/fwlib/ram_hp/rtl8721dhp_app_start.c`
+called `INT_HardFault_Patch(void)` which is called from the HardFault_ Handler
+where the CrashCatcher Entry method can be called.
+
+# Build instruction for CrashCatcher example
 
     $ cd project/realtek_amebaD_va0_example/GCC-RELEASE
     $ ./build.sh
 
-## Flash instruction
+# Flash instruction for CrashCatcher example
 
 In order to flash the binaries, the board need to be set in flashing mode. To set the
 board in flashing mode, press and hold the button and at the same time press reset button.
