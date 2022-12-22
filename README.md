@@ -1,3 +1,32 @@
+# CrashCatcher integration
+
+Crash catcher is integrated and an example can be enabled if setting
+`CONFIG_EXAMPLE_CRASH_CATCHER = 1` in `platform_opts.h` (on by default).
+
+When running the example the task will crash around 5 seconds after boot
+and the crash dump is printed to the serial console in hex format.
+
+## Build instruction
+
+    $ cd project/realtek_amebaD_va0_example/GCC-RELEASE
+    $ ./build.sh
+
+## Flash instruction
+
+In order to flash the binaries, the board need to be set in flashing mode. To set the
+board in flashing mode, press and hold the button and at the same time press reset button.
+The following will be seen in serial console when in flasing mode:
+
+    #Flash Download Start
+
+There is an image flashing tool added in tools/AmebaD/image_tool_cli/amebad_image_tool.exe
+It's a windows command line tool and can be started from Wsl using a provided script:
+
+    $ cd project/realtek_amebaD_va0_example/GCC-RELEASE
+    $ ./flash_to_ambd.sh
+
+
+-------------------------------------------------------
 
 ![Realtek-logo](https://logos-download.com/wp-content/uploads/2016/05/Realtek_logo_logotype.png)
 
